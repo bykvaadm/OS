@@ -166,7 +166,7 @@ $ dnsrecon -d mospolytech.ru
    
 * Amass (Very fast brute)
 * subfinder (Brute and finding)
-* Aquatone (Using pablic services like: shodan, censys, riskiq...)
+* Aquatone (Using public services like: shodan, censys, riskiq...)
 
 Собрать данные и занести в таблицу.
 
@@ -224,9 +224,11 @@ $ theharvester -d mospolytech.ru -b all
 больше чем вы. Учтите, что в зависимости от выбранного режима могут встречаться фальшпозитивы, которые требуется
 обрабатывать вручную, убеждаясь принадлежит ли данная информация искомой цели или нет.
 
+P.S. для работы с maltego вам придется зарегистрировать себе аккаунт
+
 ## Задание 13: Сбор информации о сотрудниках компании
 
-* http://people.yandex.ru/ (Агрегированный посик людей в различных социальных сетях)
+* http://people.yandex.ru/ (Агрегированный поиск людей в различных социальных сетях)
 * http://vk.com, http://ok.ru, http://facebook.com (Социальные сети)
 * TheHarvester, Z-Harvester (Поиск e-mail адресов в публичном доступе)
 * Recon-ng (domains-contacts,companies-contacts, domains-creds)
