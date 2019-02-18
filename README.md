@@ -8,15 +8,9 @@
 
 смотри папку admin
 
-## CI/CD
+## DevOps
 
-темы:
-
-- ansible
-- git
-- docker
-
-смотри папку cicd
+смотри папку devops
 
 ## Веб уязвимости
 
