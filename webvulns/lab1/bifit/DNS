@@ -1,0 +1,88 @@
+host bifit.com
+
+bifit.com has address 109.232.255.200
+bifit.com mail is handled by 10 pub6.bifit.com.
+bifit.com mail is handled by 20 pub2.bifit.com.
+
+nslookup bifit.com
+
+Server:		8.8.8.8
+Address:	8.8.8.8#53
+
+Non-authoritative answer:
+Name:	bifit.com
+Address: 109.232.255.200
+
+
+
+dig +search bifit.com
+ ANY
+
+; <<>> DiG 9.11.5-P1-1-Debian <<>> +search bifit.com ANY
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 17023
+;; flags: qr rd ra; QUERY: 1, ANSWER: 8, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;bifit.com.			IN	ANY
+
+;; ANSWER SECTION:
+bifit.com.		3599	IN	SOA	pub4.bifit.com. root.bifit.com. 2019013001 3600 300 1500000 3600
+bifit.com.		3599	IN	A	109.232.255.200
+bifit.com.		3599	IN	TXT	"v=spf1 mx ip4:109.232.255.173 ip4:109.232.254.169 ip4:109.232.254.242 -all"
+bifit.com.		3599	IN	MX	10 pub6.bifit.com.
+bifit.com.		3599	IN	MX	20 pub2.bifit.com.
+bifit.com.		3599	IN	NS	pub3.bifit.com.
+bifit.com.		3599	IN	NS	pub5.bifit.com.
+bifit.com.		3599	IN	NS	pub4.bifit.com.
+
+;; Query time: 38 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Wed Feb 20 21:56:16 MSK 2019
+;; MSG SIZE  rcvd: 281
+
+
+
+dig +search @pub3.bifit.com bifit.com
+ ANY
+
+
+
+; <<>> DiG 9.11.5-P1-1-Debian <<>> +search @pub3.bifit.com bifit.com ANY
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 17582
+;; flags: qr aa rd; QUERY: 1, ANSWER: 8, AUTHORITY: 0, ADDITIONAL: 6
+;; WARNING: recursion requested but not available
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+;; QUESTION SECTION:
+;bifit.com.			IN	ANY
+
+;; ANSWER SECTION:
+bifit.com.		3600	IN	A	109.232.255.200
+bifit.com.		3600	IN	TXT	"v=spf1 mx ip4:109.232.255.173 ip4:109.232.254.169 ip4:109.232.254.242 -all"
+bifit.com.		3600	IN	MX	20 pub2.bifit.com.
+bifit.com.		3600	IN	MX	10 pub6.bifit.com.
+bifit.com.		3600	IN	NS	pub4.bifit.com.
+bifit.com.		3600	IN	NS	pub5.bifit.com.
+bifit.com.		3600	IN	NS	pub3.bifit.com.
+bifit.com.		3600	IN	SOA	pub4.bifit.com. root.bifit.com. 2019013001 3600 300 1500000 3600
+
+;; ADDITIONAL SECTION:
+pub6.bifit.com.		3600	IN	A	109.232.254.135
+pub2.bifit.com.		3600	IN	A	109.232.255.213
+pub3.bifit.com.		3600	IN	A	109.234.39.37
+pub4.bifit.com.		3600	IN	A	109.232.255.219
+pub5.bifit.com.		3600	IN	A	109.232.254.152
+
+;; Query time: 51 msec
+;; SERVER: 109.234.39.37#53(109.234.39.37)
+;; WHEN: Wed Feb 20 21:58:57 MSK 2019
+;; MSG SIZE  rcvd: 361
+

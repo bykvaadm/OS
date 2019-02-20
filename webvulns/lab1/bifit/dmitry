@@ -1,0 +1,137 @@
+Deepmagic Information Gathering Tool
+"There be some deep magic going on"
+
+HostIP:109.232.255.200
+HostName:bifit.com
+
+Gathered Inet-whois information for 109.232.255.200
+---------------------------------
+
+
+inetnum:        109.232.255.0 - 109.232.255.255
+netname:        IBANK2RU-NETWORK
+descr:          IBANK2.RU, Ltd.
+country:        RU
+admin-c:        EXH1-RIPE
+tech-c:         EXH1-RIPE
+status:         ASSIGNED PA
+mnt-by:         MNT-IBANK2RU
+mnt-lower:      MNT-IBANK2RU
+mnt-routes:     MNT-IBANK2RU
+created:        2012-09-17T18:26:47Z
+last-modified:  2012-09-17T18:26:47Z
+source:         RIPE
+
+role:           iBank2RU Admin
+address:        46, Nizhnyaya Pervomayskaya str., Moscow, 105203, RUSSIA
+admin-c:        GH176-RIPE
+admin-c:        BA483-RIPE
+admin-c:        OY931-RIPE
+tech-c:         GH176-RIPE
+tech-c:         OY931-RIPE
+mnt-by:         MNT-IBANK2RU
+nic-hdl:        EXH1-RIPE
+abuse-mailbox:  abuse@ibank2.ru
+created:        2010-02-18T16:31:00Z
+last-modified:  2019-02-20T12:07:50Z
+source:         RIPE # Filtered
+
+% Information related to '109.232.255.0/24AS51464'
+
+route:          109.232.255.0/24
+origin:         AS51464
+mnt-by:         MNT-IBANK2RU
+created:        2017-02-03T09:08:08Z
+last-modified:  2017-02-03T09:08:08Z
+source:         RIPE
+
+% This query was served by the RIPE Database Query Service version 1.92.6 (WAGYU)
+
+
+
+Gathered Inic-whois information for bifit.com
+---------------------------------
+   Domain Name: BIFIT.COM
+   Registry Domain ID: 3643648_DOMAIN_COM-VRSN
+   Registrar WHOIS Server: whois.networksolutions.com
+   Registrar URL: http://networksolutions.com
+   Updated Date: 2016-11-22T14:21:16Z
+   Creation Date: 1999-02-14T05:00:00Z
+   Registry Expiry Date: 2026-02-14T05:00:00Z
+   Registrar: Network Solutions, LLC
+   Registrar IANA ID: 2
+   Registrar Abuse Contact Email: abuse@web.com
+   Registrar Abuse Contact Phone: +1.8003337680
+   Domain Status: clientTransferProhibited https://icann.org/epp#clientTransferProhibited
+   Name Server: PUB3.BIFIT.COM
+   Name Server: PUB4.BIFIT.COM
+   Name Server: PUB5.BIFIT.COM
+   DNSSEC: unsigned
+   URL of the ICANN Whois Inaccuracy Complaint Form: https://www.icann.org/wicf/
+>>> Last update of whois database: 2019-02-20T21:25:36Z <<<
+
+For more information on Whois status codes, please visit https://icann.org/epp
+
+NOTICE: The expiration date displayed in this record is the date the
+registrar's sponsorship of the domain name registration in the registry is
+currently set to expire. This date does not necessarily reflect the expiration
+date of the domain name registrant's agreement with the sponsoring
+registrar.  Users may consult the sponsoring registrar's Whois database to
+view the registrar's reported date of expiration for this registration.
+
+TERMS OF USE: You are not authorized to access or query our Whois
+database through the use of electronic processes that are high-volume and
+automated except as reasonably necessary to register domain names or
+modify existing registrations; the Data in VeriSign Global Registry
+Services' ("VeriSign") Whois database is provided by VeriSign for
+information purposes only, and to assist persons in obtaining information
+about or related to a domain name registration record. VeriSign does not
+guarantee its accuracy. By submitting a Whois query, you agree to abide
+by the following terms of use: You agree that you may use this Data only
+for lawful purposes and that under no circumstances will you use this Data
+to: (1) allow, enable, or otherwise support the transmission of mass
+unsolicited, commercial advertising or solicitations via e-mail, telephone,
+or facsimile; or (2) enable high volume, automated, electronic processes
+that apply to VeriSign (or its computer systems). The compilation,
+repackaging, dissemination or other use of this Data is expressly
+prohibited without the prior written consent of VeriSign. You agree not to
+use electronic processes that are automated and high-volume to access or
+query the Whois database except as reasonably necessary to register
+domain names or modify existing registrations. VeriSign reserves the right
+to restrict your access to the Whois database in its sole discretion to ensure
+operational stability.  VeriSign may restrict or terminate your access to the
+Whois database for failure to abide by these terms of use. VeriSign
+reserves the right to modify these terms at any time.
+
+The Registry database contains ONLY .COM, .NET, .EDU domains and
+Registrars.
+
+Gathered Netcraft information for bifit.com
+---------------------------------
+
+Retrieving Netcraft.com information for bifit.com
+Netcraft.com Information gathered
+
+Gathered Subdomain information for bifit.com
+---------------------------------
+Searching Google.com:80...
+Searching Altavista.com:80...
+Found 0 possible subdomain(s) for host bifit.com, Searched 0 pages containing 0 results
+
+Gathered E-Mail information for bifit.com
+---------------------------------
+Searching Google.com:80...
+Searching Altavista.com:80...
+Found 0 E-Mail(s) for host bifit.com, Searched 0 pages containing 0 results
+
+Gathered TCP Port information for 109.232.255.200
+---------------------------------
+
+ Port		State
+
+80/tcp		open
+
+Portscan Finished: Scanned 150 ports, 0 ports were in state closed
+
+
+All scans completed, exiting
