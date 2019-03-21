@@ -36,7 +36,7 @@
 
 
 2) Начать установку Linux и дойдя до выбора жестких дисков сделать следующее:
-* Partitioning method: maual, после чего вы должны увидеть такую картину:
+* Partitioning method: manual, после чего вы должны увидеть такую картину:
 ![partition disks](https://raw.githubusercontent.com/bykvaadm/OS/master/admin/lab2/images/VirtualBox_lab2_18_03_2019_17_21_05.png)
 * Настройка отдельного раздела под /boot: Выберите первый диск и создайте на нем новую таблицу разделов
   * Partition size: 512M
@@ -52,6 +52,7 @@
     * Create MD device
     * Software RAID device type: Выберите зеркальный массив
     * Active devices for the RAID XXXX array: Выбрать оба диска
+    * Spare devices: Оставить 0 по умолчанию
     * Finish
   * В итоге вы должны получить такую картину:
   ![partition disks](https://raw.githubusercontent.com/bykvaadm/OS/master/admin/lab2/images/VirtualBox_lab_2_21_03_2019_00_01_49.png)
@@ -73,21 +74,21 @@
   ![partition disks](https://raw.githubusercontent.com/bykvaadm/OS/master/admin/lab2/images/VirtualBox_lab2_18_03_2019_17_46_46.png)
   * Завершив настройку LVM вы должны увидеть следующее:
   ![partition disks](https://raw.githubusercontent.com/bykvaadm/OS/master/admin/lab2/images/VirtualBox_lab_2_21_03_2019_00_08_58.png)
-* Разметка разделов: по-очереди выберите каждый созданный в LVM том и разметьте его:
+* Разметка разделов: по-очереди выберите каждый созданный в LVM том и разметьте их, например, для root так:
   * Use as: ext4
   * mount point: /
   * результат разметки корневого раздела должен получиться таким:
   ![partition disks](https://raw.githubusercontent.com/bykvaadm/OS/master/admin/lab2/images/VirtualBox_lab2_18_03_2019_17_47_38.png)
-  * повторите операцию разметки для var, /var/log выбрав соответствующие точки монтирования, получив следующий результат:
+  * повторите операцию разметки для var и log выбрав соответствующие точки монтирования (/var и /var/log вручную ввести), получив следующий результат:
   ![partition disks](https://raw.githubusercontent.com/bykvaadm/OS/master/admin/lab2/images/VirtualBox_lab_2_21_03_2019_00_13_59.png)
-  * Поскольку одновременно монтировать 2 раза /boot нельзя, то зайлите в свойства этого раздела на втором диске
+  * Поскольку одновременно монтировать 2 раза /boot нельзя, то зайдите в свойства этого раздела на втором диске
     и выберите mount point: none
   * Выберите Finish Partitioning
 * Финальный результат должен получиться вот таким:
 ![partition disks](https://raw.githubusercontent.com/bykvaadm/OS/master/admin/lab2/images/VirtualBox_lab2_18_03_2019_17_48_31.png)
 
-3) Закончить установку ОС и загрузиться в нее
-4) Выполнить установку grub на второе устройство
+3) Закончить установку ОС, поставив grub на первое устройство (sda) и перезагрузиться
+4) Выполнить установку grub на второе устройство:
 * посмотреть диски в системе: fdisk -l
 * Перечислите все диски которые вам выдала предыдущая команда и опишите что это за диск
 * Найдите диск на который не была выполнена установка grub и выполните эту установку:
@@ -96,7 +97,7 @@
 * просмотрите информацию о текущем raid командой cat /proc/mdstat и запишите что вы увидели.
 * посмотрите выводы команд: pvs, vgs, lvs, mount и запишите что именно вы увидели
 
-Опишите своими словами что вы сделали и какой результат получили в ите проделанного задания
+Опишите своими словами что вы сделали и какой результат получили в итоге проделанного задания
 
 После выполнения этого задания рекомендуется сохранить резервную копию папки с виртуальной машиной или сделать
 vagrant box: https://t.me/bykvaadm/191
