@@ -83,7 +83,7 @@
 * Настройка отдельного раздела под /boot: Выберите первый диск и создайте на нем новую таблицу разделов
   * Partition size: 512M
   * Mount point: /boot
-  * Повторите настройку для второго диска, в итоге получив следующее:
+  * Повторите настройку для второго диска, но поскольку одновременно монтировать 2 раза /boot нельзя, то выберите mount point: none в итоге получив следующее (картинка с косяком, переделывать лень):
     ![partition disks](https://raw.githubusercontent.com/bykvaadm/OS/master/admin/lab2/images/VirtualBox_lab_2_20_03_2019_23_49_16.png)
 * Настройка RAID: 
   * Выберите свободное место на первом диске и настройте в качестве типа раздела physical volume for RAID
@@ -123,12 +123,10 @@
   ![partition disks](https://raw.githubusercontent.com/bykvaadm/OS/master/admin/lab2/images/VirtualBox_lab2_18_03_2019_17_47_38.png)
   * повторите операцию разметки для var и log выбрав соответствующие точки монтирования (/var и /var/log вручную ввести), получив следующий результат:
   ![partition disks](https://raw.githubusercontent.com/bykvaadm/OS/master/admin/lab2/images/VirtualBox_lab_2_21_03_2019_00_13_59.png)
-  * Поскольку одновременно монтировать 2 раза /boot нельзя, то зайдите в свойства этого раздела на втором диске
-    и выберите mount point: none
   * Выберите Finish Partitioning
+  * Вам зададут несколько вопросов, про то что у вас остался несмонтированный раздел и не настроен swap. Следует ответить отрицательно на оба вопроса.
 * Финальный результат должен получиться вот таким:
 ![partition disks](https://raw.githubusercontent.com/bykvaadm/OS/master/admin/lab2/images/VirtualBox_lab2_18_03_2019_17_48_31.png)
-
 3) Закончить установку ОС, поставив grub на первое устройство (sda) и загрузить систему.
 4) Выполните копирование содержимого раздела /boot с диска sda (ssd1) на диск sdb (ssd2)
 ```
