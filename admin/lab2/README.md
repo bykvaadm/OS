@@ -110,6 +110,7 @@
     * Software RAID device type: Выберите зеркальный массив
     * Active devices for the RAID XXXX array: Выбрать оба диска
     * Spare devices: Оставить 0 по умолчанию
+    * Active devices for the RAID XX array: выбрать разделы, которые вы создавали под raid
     * Finish
   * В итоге вы должны получить такую картину:
   ![partition disks](https://raw.githubusercontent.com/bykvaadm/OS/master/admin/lab2/images/VirtualBox_lab_2_21_03_2019_00_01_49.png)
