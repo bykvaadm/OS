@@ -1,0 +1,50 @@
+servers=[
+  {
+    :hostname => "web1",
+    :ip => "192.168.33.10",
+    :box => "debian/stretch64",
+    :ram => 256,
+    :cpu => 1,
+    :ssh_port => 2001
+  },
+  {
+    :hostname => "web2",
+    :ip => "192.168.33.20",
+    :box => "debian/stretch64",
+    :ram => 256,
+    :cpu => 1,
+    :ssh_port => 2002
+  },
+  {
+    :hostname => "db1",
+    :ip => "192.168.33.30",
+    :box => "debian/stretch64",
+    :ram => 256,
+    :cpu => 1,
+    :ssh_port => 2003
+  },
+  {
+    :hostname => "db2",
+    :ip => "192.168.33.40",
+    :box => "debian/stretch64",
+    :ram => 256,
+    :cpu => 1,
+    :ssh_port => 2004
+  }
+]
+
+Vagrant.configure(2) do |config|
+    servers.each do |machine|
+        config.vm.define machine[:hostname] do |node|
+            node.vm.box = machine[:box]
+            node.vm.hostname = machine[:hostname]
+            node.vm.network "private_network", ip: machine[:ip]
+            node.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "~/.ssh/me.pub"
+            node.vm.provision "shell", inline: "cat ~vagrant/.ssh/me.pub >> ~vagrant/.ssh/authorized_keys"
+            node.vm.provider "virtualbox" do |vb|
+                config.vm.network :forwarded_port, guest: 22, host: machine[:ssh_port], id: "ssh"
+                vb.customize ["modifyvm", :id, "--memory", machine[:ram]]
+            end
+        end
+    end
+end
