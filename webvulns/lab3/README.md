@@ -61,7 +61,9 @@ Def *** = задача с дополнительными баллами
 Выполнить команды для подготовки рабочей среды metasploit
 
 ```shellsession
-# systemctl start postgresql# msfdb init# msfconsole
+# systemctl start postgresql
+# msfdb init
+# msfconsole
 ```
 
 Внутри msf также можно запускать nmap, однако в отличие от простого запуска, полученными данными потом очень удобно оперировать - полученные порты, хосты и сервисы заносятся в базу данных, откуда впоследствии их можно извлекать для проведения атак, выгрузки для отчетов или переноса в другой сервис. Для этого мы в предыдущем пункте подключали базу postgresql. Кроме того в msf существуют workspaces, которые можно использовать для разделения сканируемых объектов на задачи и подзадачи.
@@ -69,7 +71,8 @@ Def *** = задача с дополнительными баллами
 Создайте новое рабочее пространство и посмотрите существующие:
 
 ```shellsession
-msf > workspace -a lab33msf > workspace
+msf > workspace -a lab33
+msf > workspace
 ```
 
 Запустите nmap, сохранив при этом результаты в базу данных
@@ -81,7 +84,8 @@ msf > db_nmap -v -sV IPVulnBox
 Посмотрите какие результаты сохранились в базу данных
 
 ```shellsession
-msf> hosts -c address,os_flavor -S Linuxmsf> services
+msf> hosts -c address,os_flavor -S Linux
+msf> services
 ```
 
 В msf кроме nmap существуют и собственные модули для выполнения сканирования:
@@ -91,7 +95,8 @@ msf> hosts -c address,os_flavor -S Linuxmsf> services
 ```shellsession
 msf> search portscan
 msf> use auxiliary/scanner/portscan/ack
-msf> hosts -c address,os_flavor -S Linux -Rmsf> show options
+msf> hosts -c address,os_flavor -S Linux -R
+msf> show options
 ```
 
 - Какой ключ добавляет хосты в список хостов для сканирования?
