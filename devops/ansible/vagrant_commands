@@ -1,0 +1,29 @@
+1. получаем список скачанных боксов
+
+```
+$ vagrant box list
+debian/buster64 (virtualbox, 10.0.0)
+ubuntu/xenial64 (virtualbox, 20190822.0.0)
+```
+
+2. выгружаем виртуальную машину
+
+```
+$ vagrant box repackage debian/buster64 virtualbox 10.0.0
+```
+
+3. переименовываем
+
+```
+$ mv package.box buster64.box
+```
+
+4. повторить для других боксов
+
+5. передать файлы другим пользователям
+
+6. на целевой машине выполнить команду:
+
+```
+$ vagrant box add --name debian/buster64 package.box
+```
