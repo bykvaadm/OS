@@ -115,7 +115,7 @@ $ whois ptsecurity.com
 
 ```
 $ recon-ng
-[recon-ng][default] > load google_site_web
+[recon-ng][default] > modules load google_site_web
 recon-ng][default][google_site_web] > set source mospolytech.ru
 [recon-ng][default][google_site_web] > run
 ```
