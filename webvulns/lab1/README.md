@@ -262,3 +262,12 @@ P.S. для работы с maltego вам придется зарегистри
 Дополнительно:
 * http://osintframework.com/
 * https://namechk.com
+
+В качестве результата задания вам нужно найти информацию о следующих людях:
+* CISO - Chief information security officer
+* CEO – Chief Executive Officer
+* COO – Chief Operating Officer
+* CFO – Chief Financial Officer 
+* CMO – Chief Marketing Officer
+* CIO – Chief Information Officer
+* CTO - Chief Technology Officer
