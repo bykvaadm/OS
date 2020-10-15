@@ -2,9 +2,13 @@
 
 ## Prerequirements:
 
-1. Скачать уязвимый образ виртуальной машины [https://sourceforge.net/projects/metasploitable](https://sourceforge.net/projects/metasploitable)
-2. Развернуть kali linux
-3. Настроить сетевую связность между двумя виртуальными машинами
+1. выкачать виртуалку с vulnbox с моего зеркала. Если оно не работает можно перейти к п2, просто будет сильно дольше.
+```
+vagrant box add http://super.secret.myctf.ru/metasploitable3-ub1404.box --name rapid7/metasploitable3-ub1404
+```
+2. запустить приложенный Vagrantfile.
+
+3. Настроить сетевую связность между двумя виртуальными машинами. в случае с vagrant ip адреса получатся по dhcp
 
 Def IPVulnBox = ip адрес виртуальной машины metasploitable
 
