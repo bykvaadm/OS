@@ -20,6 +20,7 @@ Def *** = задача с дополнительными баллами
 
 ```shellsession
 # nmap IPVulnBox
+# nmap -sV --script vulners IPVulnBox
 ```
 
 Занести данные в таблицу:
