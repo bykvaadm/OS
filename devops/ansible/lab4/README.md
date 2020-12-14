@@ -113,7 +113,7 @@ password sufficient pam_unix.so sha512 shadow nullok try_first_pass use_authtok 
 - Для всех существующих локальных уз необходимо применить:
 
 ```
-chage -m 1 -M 90 < >
+chage -m 1 -M 90 <LOGIN>
 ```
 
 - Отредактируйте файл /etc/default/useradd:
