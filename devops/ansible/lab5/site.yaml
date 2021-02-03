@@ -1,0 +1,4 @@
+- name: ensure docker
+  become: true
+  hosts: all
+  roles: [ docker ]
