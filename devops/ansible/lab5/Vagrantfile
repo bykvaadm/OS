@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
   (1..N).each do |machine_id|
     config.vm.define "docker-#{machine_id}" do |n|
       n.vm.hostname = "docker-#{machine_id}"
-      n.vm.network "private_network", ip: "192.168.77.#{20+machine_id}"
+      n.vm.network "private_network", ip: "192.168.56.#{20+machine_id}"
       n.vm.box = "debian/buster64"
 
       if machine_id == N
