@@ -1,0 +1,3 @@
+---
+auditbeat_docker_image_tag: "7.10.2"
+auditbeat_docker_image: docker.elastic.co/beats/auditbeat-oss

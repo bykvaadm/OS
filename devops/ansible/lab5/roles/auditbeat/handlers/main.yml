@@ -1,0 +1,7 @@
+---
+- name: restart service auditbeat
+  systemd:
+    name: auditbeat
+    daemon_reload: yes
+    enabled: yes
+    state: restarted

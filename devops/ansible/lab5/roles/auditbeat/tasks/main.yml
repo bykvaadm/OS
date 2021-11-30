@@ -1,0 +1,85 @@
+---
+- name: ensure work directories
+  file:
+    state: directory
+    path: "{{ item }}"
+    owner: root
+    group: root
+    mode: 0750
+  with_items:
+  - /etc/auditbeat
+  - /var/lib/auditbeat
+
+- name: ensure config
+  when: auditbeat_custom_config is undefined
+  notify: restart service auditbeat
+  template:
+    src: config.yml.j2
+    dest: /etc/auditbeat/config.yml
+    owner: root
+    group: root
+    mode: 0640
+
+- name: ensure config
+  when: auditbeat_custom_config is defined
+  notify: restart service auditbeat
+  copy:
+    content: "{{ auditbeat_custom_config }}"
+    dest: /etc/auditbeat/config.yml
+    owner: root
+    group: root
+    mode: 0640
+
+- name: ensure ca
+  copy:
+    dest: /etc/auditbeat/kafka-ca.crt
+    content: "{{ security_elastic_beat_kafka_ca }}"
+    owner: root
+    group: root
+    mode: 0640
+
+- name: ensure systemd auditbeat.service
+  notify: restart service auditbeat
+  copy:
+    dest: /etc/systemd/system/auditbeat.service
+    mode: 0644
+    content: |
+      [Unit]
+      Requires=docker.service
+      After=docker.service
+      StartLimitIntervalSec=0
+      [Service]
+      ExecStartPre=-/usr/bin/docker rm --force %N
+      ExecStart=/usr/bin/docker run \
+        --name=%N \
+        --rm=true \
+        --pid=host \
+        --network=host \
+        --stop-timeout=60 \
+        --user=root:root \
+        --cap-add=AUDIT_READ \
+        --cap-add=AUDIT_CONTROL \
+        --label=co.elastic.logs/enabled=true \
+        --label=co.elastic.logs/format=json \
+        --label=co.elastic.logs/timezone=Europe/Moscow \
+        --volume=/etc/auditbeat:/etc/auditbeat:ro \
+        --volume=/etc/ssl/certs:/etc/ssl/certs:ro \
+        --volume=/usr/share/zoneinfo/Europe/Moscow:/etc/localtime:ro \
+        --volume=/var/lib/auditbeat:/usr/share/auditbeat/data:rw \
+        {{ auditbeat_docker_image }}:{{ auditbeat_docker_image_tag }} -E name={{ inventory_hostname }} -e -c /etc/auditbeat/config.yml
+      ExecStop=-/usr/bin/docker stop %N
+      Restart=always
+      RestartSec=10
+      KillMode=process
+      [Install]
+      WantedBy=multi-user.target
+
+- name: execute handlers
+  meta: flush_handlers
+
+- name: ensure auditbeat service is started
+  systemd:
+    name: auditbeat
+    daemon_reload: yes
+    enabled: yes
+    state: started

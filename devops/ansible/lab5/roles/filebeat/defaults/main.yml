@@ -1,0 +1,11 @@
+---
+filebeat_docker_image_tag: "7.10.1"
+
+filebeat_loglevel: error
+
+filebeat_autodiscover_providers:
+- type: docker
+  hints:
+    enabled: true
+    default_config.enabled: false
+

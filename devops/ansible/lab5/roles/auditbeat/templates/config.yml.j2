@@ -1,0 +1,45 @@
+---
+max_procs: 1
+auditbeat.modules:
+- module: auditd
+  audit_rules: |
+    -a exit,always -F arch=b64 -F euid=0 -S execve -k rootcmd
+    -a exit,always -F arch=b64 -F euid>1000 -S execve -k usercmd
+    -w /etc/hosts -p wa -k file_integrity
+    -w /etc/group -p wa -k file_integrity
+    -w /etc/sudoers -p wa -k file_integrity
+processors:
+- add_host_metadata: ~
+- drop_event:
+    when:
+      or:
+      - and:
+        - contains:
+            event.category: "process"
+        - or:
+          - contains:
+              auditd.data.tty: "(none)"
+          - not:
+              regexp:
+                auditd.data.tty: ".+"
+      - and:
+        - contains:
+            event.category: "file"
+        - contains:
+            auditd.data.tty: "(none)"
+output.kafka:
+  hosts: {{ security_elastic_beat_kafka_brokers | to_json }}
+  topic: security_logs
+  partition.round_robin.reachable_only: false
+  required_acks: 1
+  ssl.certificate_authorities: [/etc/auditbeat/kafka-ca.crt]
+setup:
+  dashboards.enabled: false
+  template.enabled: false
+  ilm.enabled: false
+logging:
+  json: true
+  level: info
+  metrics:
+    enabled: true
+    period: 30s

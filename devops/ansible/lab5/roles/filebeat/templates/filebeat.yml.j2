@@ -1,0 +1,56 @@
+---
+max_procs: 1
+fields_under_root: true
+fields:
+  zone: {{ env }}
+filebeat:
+  shutdown_timeout: 10s
+  autodiscover.providers:
+  {{ filebeat_autodiscover_providers | to_nice_yaml(indent=2) | indent(2) }}
+{% if filebeat_inputs is defined %}
+  inputs:
+  {{ filebeat_inputs | to_nice_yaml(indent=2) | indent(2) }}
+{%- endif %}
+processors:
+- copy_fields:
+    fields:
+    - from: docker.container.labels.co_elastic_logs/timezone
+      to: timezone
+    fail_on_error: false
+    ignore_missing: true
+- add_fields:
+    target: ""
+    fields.timezone: UTC
+    when.not.has_fields: [timezone]
+output.elasticsearch:
+  worker: {{ filebeat_elasticsearch_hosts | length }}
+  hosts:
+  {{ filebeat_elasticsearch_hosts | to_nice_yaml(indent=2) | trim | indent(2) }}
+  username: {{ filebeat_elasticsearch_username }}
+  password: {{ filebeat_elasticsearch_password }}
+  loadbalance: true
+  index: filebeat__%{+yyyy.MM.dd}
+  indices:
+  - index: filebeat_%{[log.service]}
+    when.regexp:
+      log.service: ".+"
+  - index: filebeat_%{[container.name]}
+    when.regexp:
+      container.name: ".+"
+  pipelines:
+  - pipeline: filebeat-%{[log.format]}
+    when.regexp:
+      log.format: ".+"
+  - pipeline: filebeat-%{[docker.container.labels.co_elastic_logs/format]}
+    when.regexp:
+      docker.container.labels.co_elastic_logs/format: ".+"
+setup:
+  dashboards.enabled: false
+  template.enabled: false
+  ilm.enabled: false
+logging:
+  json: true
+  level: {{ filebeat_loglevel }}
+  metrics:
+    enabled: true
+    period: 30s

@@ -1,0 +1,63 @@
+---
+- name: ensure data directory
+  file:
+    state: directory
+    path: /var/lib/filebeat
+    owner: root
+    group: root
+    mode: 0750
+
+- name: ensure filebeat config
+  notify: restart service filebeat
+  template:
+    src: filebeat.yml.j2
+    dest: /etc/filebeat.yml
+    owner: root
+    group: root
+    mode: 0640
+
+- name: ensure systemd filebeat.service
+  notify: restart service filebeat
+  copy:
+    dest: /etc/systemd/system/filebeat.service
+    mode: 0644
+    content: |
+      [Unit]
+      Requires=docker.service
+      After=docker.service
+      StartLimitIntervalSec=0
+      [Service]
+      ExecStartPre=-/usr/bin/docker rm --force %N
+      ExecStart=/usr/bin/docker run \
+        --name=%N \
+        --rm=true \
+        --network=host \
+        --stop-timeout=60 \
+        --user=root:root \
+        --label=co.elastic.logs/enabled=true \
+        --label=co.elastic.logs/format=json \
+        --label=co.elastic.logs/timezone=Europe/Moscow \
+        --volume=/etc/ssl/certs:/etc/ssl/certs:ro \
+        --volume=/usr/share/zoneinfo/Europe/Moscow:/etc/localtime:ro \
+        --volume=/var/run/docker.sock:/var/run/docker.sock:rw \
+        --volume=/etc/filebeat.yml:/etc/filebeat.yml:ro \
+        --volume=/var/lib/docker/containers:/var/lib/docker/containers:ro \
+        --volume=/var/lib/filebeat:/usr/share/filebeat/data:rw \
+        --volume=/var/log:/var/log:ro \
+        docker.elastic.co/beats/filebeat-oss:{{ filebeat_docker_image_tag }} -E name={{ inventory_hostname }} -e -c /etc/filebeat.yml
+      ExecStop=-/usr/bin/docker stop %N
+      Restart=always
+      RestartSec=10
+      KillMode=process
+      [Install]
+      WantedBy=multi-user.target
+
+- name: execute handlers
+  meta: flush_handlers
+
+- name: ensure filebeat service is started
+  systemd:
+    name: filebeat
+    daemon_reload: yes
+    enabled: yes
+    state: started
