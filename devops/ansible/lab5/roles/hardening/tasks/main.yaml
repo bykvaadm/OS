@@ -1,0 +1,96 @@
+---
+- name: disable systemd services
+  systemd:
+    name: "{{ item }}"
+    enabled: no
+  with_items:
+  - debug-shell
+  #- autofs
+  #failed_when: false
+  #ignore_errors: yes
+
+- name: Set Account Expiration Following Inactivity
+  copy:
+    dest: /etc/sysctl.conf
+    content: |
+      kernel.perf_event_paranoid = 2
+      kernel.kexec_load_disabled = 1
+      net.core.bpf_jit_harden    = 2
+      kernel.dmesg_restrict      = 1
+  notify: apply sysctl.conf
+
+- name: Disable Ctrl-Alt-Del Reboot Activation
+  ansible.builtin.file:
+    src: /dev/null
+    dest: /etc/systemd/system/ctrl-alt-del.target
+    state: link
+
+- name: Disable Ctrl-Alt-Del Burst Action
+  ansible.builtin.lineinfile:
+    path: /etc/systemd/system.conf
+    line: CtrlAltDelBurstAction=none
+    create: yes
+
+- name: Ensure Home Directories are Created for New Users
+  ansible.builtin.lineinfile:
+    path: /etc/login.defs
+    line: CREATE_HOME yes
+    create: yes
+    regexp: '.*CREATE_HOME.*'
+
+- name: Set Password Hashing Algorithm in /etc/login.defs
+  ansible.builtin.lineinfile:
+    path: /etc/login.defs
+    line: ENCRYPT_METHOD SHA512
+    create: yes
+
+- name: get non-unique users list
+  shell: "getent passwd | awk -F: '{ print $1}' | uniq -d"
+  register: result
+  changed_when: result.stdout != ""
+
+- debug: var=result.stdout
+  when: result.stdout != ""
+
+- name: Set Password Hashing Algorithm in /etc/login.defs
+  ansible.builtin.lineinfile:
+    path: /etc/login.defs
+    line: ENCRYPT_METHOD SHA512
+    create: yes
+
+- name: Set Account Expiration Following Inactivity
+  copy:
+    dest: /etc/default/useradd
+    src: useradd
+
+- name: Verify All Account Password Hashes are Shadowed
+  shell: |
+    awk -F: '$2!="x"' /etc/passwd
+  register: passwd
+  changed_when: passwd.stdout != ""
+
+- debug: var=passwd.stdout
+  when: passwd.stdout != ""
+
+- name: Set Account Expiration Following Inactivity
+  copy:
+    dest: /etc/motd
+    content: "{{ motd }}"
+
+- name: Verify /boot/grub2/grub.cfg Permissions
+  file:
+    dest: /boot/grub/grub.cfg
+    owner: root
+    group: root
+    mode: 0600
+
+- name: Set Account Expiration Following Inactivity
+  copy:
+    dest: /etc/sysctl.conf
+    content: |
+      kernel.perf_event_paranoid = 1
+      kernel.kexec_load_disabled = 2
+      net.core.bpf_jit_harden    = 1
+      kernel.dmesg_restrict      = 2
+  notify: apply sysctl.conf
+

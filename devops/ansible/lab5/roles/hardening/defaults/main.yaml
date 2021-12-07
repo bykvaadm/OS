@@ -1,0 +1,6 @@
+inactive: 35
+motd: |
+  AZAZA OLOLO
+  GALAXY IS IN OPASNOSTE!
+  server: {{ inventory_hostname }}
+
