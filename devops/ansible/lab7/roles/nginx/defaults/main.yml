@@ -1,0 +1,26 @@
+nginx_docker_image_tag: stable
+nginx_docker_repo: nginx
+nginx_host_config_path: /etc/nginx
+nginx_docker_config_path: "{{ nginx_host_config_path }}"
+nginx_with_prometheus: False
+
+nginx_ssl_certs: []
+nginx_configs:
+- name: default.conf
+  value: |
+    server {
+        listen       80;
+        server_name  localhost;
+        location / {
+            root   /usr/share/nginx/html;
+            index  index.html index.htm;
+        }
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   /usr/share/nginx/html;
+        }
+    }
+
+nginx_service_name: nginx
+nginx_postrotate_cmd: kill -USR1 `cat /var/run/nginx.pid`
+nginx_logrotate_keep_logs: 7

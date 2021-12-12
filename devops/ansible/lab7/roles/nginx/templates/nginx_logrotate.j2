@@ -1,0 +1,18 @@
+/var/log/nginx/*.log {
+    nomail
+    daily
+    dateext
+    dateformat .%Y%m%d
+    dateyesterday
+    rotate {{ nginx_logrotate_keep_logs }}
+    su root root
+    create 644 root root
+    missingok
+    notifempty
+    compress
+    delaycompress
+    sharedscripts
+    postrotate
+        {{ nginx_postrotate_cmd }}
+    endscript
+}
