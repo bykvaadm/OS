@@ -1,0 +1,22 @@
+---
+nginx_configs:
+- name: mywebsite.conf
+  value: |
+
+
+nginx_ssl_certs:
+- name: ca.crt
+  value: |
+    -----BEGIN CERTIFICATE-----
+    ....
+    -----END CERTIFICATE-----
+- name: server.crt
+  value: |
+    -----BEGIN CERTIFICATE-----
+    ....
+    -----END CERTIFICATE-----
+- name: server.key
+  value: |
+    -----BEGIN PRIVATE KEY-----
+    ....
+    -----END PRIVATE KEY-----

@@ -54,17 +54,6 @@
     mode: 0750
   with_items: "{{ nginx_configs }}"
 
-- name: ensure prometheus lua files
-  when: nginx_with_prometheus
-  notify: restart service nginx
-  copy:
-    src: "{{ item }}"
-    dest: "{{ nginx_host_config_path }}/prometheus"
-    mode: 0777
-    owner: nobody
-    group: nogroup
-  with_fileglob: "prometheus/*.lua"
-
 - name: get files in conf.d dir
   shell: ls -1 {{ nginx_host_config_path }}/conf.d
   register: confd_existing_files
@@ -93,7 +82,6 @@
       After=docker.service
       StartLimitIntervalSec=0
       [Service]
-      EnvironmentFile=-/etc/environments/consul
       ExecStartPre=-/usr/bin/docker rm --force %N
       ExecStart=/usr/bin/docker run \
         --name=%N \
@@ -116,10 +104,8 @@
       {% endif %}
         --volume /var/log/nginx:/var/log/nginx:rw \
         {{ nginx_docker_repo }}:{{ nginx_docker_image_tag }}
-      ExecStop=-/usr/bin/docker stop %N
-      ExecStartPost=-/opt/bin/consul-service register -e {{ env }} -n %N -p 9146 -t prometheus -j {{ project }}
-      ExecStop=-/opt/bin/consul-service deregister -e {{ env }} -n %N
-      ExecReload=/usr/bin/docker exec %N /usr/local/openresty/bin/openresty -s reload
+      ExecStop=-/usr/bin/docker stop %N    
+      ExecReload=/usr/bin/docker exec %N nginx -s reload
       Restart=always
       RestartSec=10
       KillMode=process

@@ -1,0 +1,19 @@
+---
+- name: ensure nginx
+  become: true
+  hosts: all
+  roles:
+  - docker
+  - nginx
+  post_tasks:
+  - name: ensure /var/www dir
+    when: inventory_hostname == "nginx-2" or inventory_hostname == "nginx-3"
+    file:
+      path: "/var/www/mywebsite"
+      state: directory
+  - name: ensure static files
+    when: inventory_hostname == "nginx-2" or inventory_hostname == "nginx-3"
+    copy:
+      dest: /var/www/mywebsite/index.html
+      content: |
+        <h1>Hello world! It's {{ inventory_hostname }}</h1>

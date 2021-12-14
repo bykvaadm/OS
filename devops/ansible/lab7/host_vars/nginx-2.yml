@@ -1,0 +1,4 @@
+---
+nginx_configs:
+- name: mywebsite.conf
+  value: |
